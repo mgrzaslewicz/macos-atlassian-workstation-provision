@@ -1,11 +1,12 @@
 - name: Setup cloudtoken # based on https://developer.atlassian.com/cloud/tool/cloudtoken/install/macos/
   hosts: all
-  gather_facts: False
+  gather_facts: True
   tags: cloudtoken
   tasks:
     - name: Add cloudtoken homebrew tap
       homebrew_tap:
-        name: atlassian/cloudtoken git@bitbucket.org:atlassian/cloudtoken-homebrew-tap.git
+        url: git@bitbucket.org:atlassian/cloudtoken-homebrew-tap.git
+        name: atlassian/cloudtoken
     - name: Install cloudtoken
       homebrew_cask:
         name: cloudtoken
@@ -13,55 +14,8 @@
       file:
         path: ~/.config/cloudtoken
         state: directory
-    - name: Copy config file with replacing %%username%% with current user
+    - name: Copy config file
       template:
         src: config.yaml.j2
         dest: ~/.config/cloudtoken/config.yaml
         mode: 0600
-    - name: Copy config file
-      copy:
-        src: config.yaml
-        dest: ~/.config/cloudtoken/config.yaml
-    - name: Setup config file with expected lines
-      lineinfile:
-        dest: ~/.config/cloudtoken/config.yaml
-        state: present
-        line: '{{ item }}'
-        loop:
-            - "client_id: 1234567890"
-            - "client_secret: 1234567890"
-            - "redirect_uri: https://example.com"
-            - "scopes:"
-            - "  - read:jira-user"
-            - "  - read:jira-work"
-            - "  - write:jira-work"
-            - "  - manage:jira-configuration"
-            - "  - manage:jira-project"
-            - "  - manage:jira-boards"
-            - "  - manage:jira-webhook"
-            - "  - manage:jira-data-provider"
-            - "  - manage:jira-service-desk"
-            - "  - manage:jira-servicedesk-request"
-            - "  - manage:jira-servicedesk-customer"
-            - "  - manage:jira-servicedesk-agent"
-            - "  - manage:jira-servicedesk-settings"
-            - "  - manage:jira-servicedesk-portal"
-            - "  - manage:jira-servicedesk-request-type"
-            - "  - manage:jira-servicedesk-sla"
-            - "  - manage:jira-servicedesk-organization"
-            - "  - manage:jira-servicedesk-automation"
-            - "  - manage:jira-servicedesk-queue"
-            - "  - manage:jira-servicedesk-canned-response"
-            - "  - manage:jira-servicedesk-customer-notification"
-            - "  - manage:jira-servicedesk-agent-notification"
-            - "  - manage:jira-servicedesk-customer-permission"
-            - "  - manage:jira-servicedesk-agent-permission"
-            - "  - manage:jira-servicedesk-customer-request-type"
-            - "  - manage:jira-servicedesk-agent-request-type"
-            - "  - manage:jira-servicedesk-customer-portal"
-            - "  - manage:jira-servicedesk-agent-portal"
-            - "  - manage:jira-servicedesk-customer-request-field"
-            - "  - manage:jira-servicedesk-agent-request-field"
-            - "  - manage:jira
-
-

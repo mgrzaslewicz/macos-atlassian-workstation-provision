@@ -9,7 +9,7 @@ defaults:
     session_duration: 36000
     saml_response_plugin: idaptive
   skip_update_check: false
-  username: %%username%%
+  username: {{ ansible_env.USER }}
 plugins:
   pre_auth: []
   auth: [idaptive, saml]
