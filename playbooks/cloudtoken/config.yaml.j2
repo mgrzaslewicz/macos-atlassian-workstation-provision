@@ -1,0 +1,16 @@
+defaults:
+  idaptive:
+    appkey: aa23927a-08ea-4530-8fc3-2bd0b311f4ab
+    auth_preferences: [Password, MFA (US-East-1)]
+    mfa_method: push
+    tenant_id: AAS0641
+    vanity_id: atlassian
+  saml:
+    session_duration: 36000
+    saml_response_plugin: idaptive
+  skip_update_check: false
+  username: %%username%%
+plugins:
+  pre_auth: []
+  auth: [idaptive, saml]
+  post_auth: [url_generator, export_credentials_awscli]
