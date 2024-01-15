@@ -1,0 +1,16 @@
+- name: Setup atlas-cli # based on https://developer.atlassian.com/platform/atlas-cli/users/install/
+  hosts: all
+  gather_facts: True
+  tags: atlas
+  tasks:
+    - name: Install atlas-cli
+      shell:
+        cmd: /bin/bash -c "$(curl -fsSL https://statlas.prod.atl-paas.net/atlas-cli/install.sh)"
+    - name: Install packages plugin
+      shell:
+        cmd: /opt/atlassian/bin/atlas plugin install -n packages
+
+    - name: Setup secrets
+      shell:
+        cmd: /opt/atlassian/bin/atlas packages secrets
+      when: False # Below needs a user input, leaving here as a manual step

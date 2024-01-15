@@ -1,2 +1,3 @@
 ---
+- import_playbook: atlas/atlas.yml
 - import_playbook: cloudtoken/cloudtoken.yml
