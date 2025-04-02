@@ -1,3 +1,4 @@
 ---
 - import_playbook: atlas/atlas.yml
 - import_playbook: cloudtoken/cloudtoken.yml
+- import_playbook: vpn/cloudfare.yml

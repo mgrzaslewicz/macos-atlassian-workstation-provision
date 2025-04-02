@@ -1,0 +1,8 @@
+- name: Setup cloudfare VPN
+  hosts: all
+  gather_facts: True
+  tags: cloudfare,vpn
+  tasks:
+    - name: Install cloudfare
+      homebrew_cask:
+        name: cloudflare-warp
